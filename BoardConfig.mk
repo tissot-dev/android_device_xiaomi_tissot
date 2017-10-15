@@ -48,6 +48,9 @@ TARGET_KERNEL_CONFIG := lineageos_tissot_defconfig
 TARGET_KERNEL_SOURCE := kernel/xiaomi/msm8953
 TARGET_PREBUILT_KERNEL := $(LOCAL_PATH)/prebuilt/kernel
 
+# ANT
+BOARD_ANT_WIRELESS_DEVICE := "vfs-prerelease"
+
 # Audio
 AUDIO_FEATURE_ENABLED_ALAC_OFFLOAD := true
 AUDIO_FEATURE_ENABLED_ACDB_LICENSE := true
