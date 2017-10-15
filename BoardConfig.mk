@@ -48,6 +48,9 @@ TARGET_KERNEL_CONFIG := lineageos_tissot_defconfig
 TARGET_KERNEL_SOURCE := kernel/xiaomi/msm8953
 TARGET_PREBUILT_KERNEL := $(LOCAL_PATH)/prebuilt/kernel
 
+# Assert
+TARGET_OTA_ASSERT_DEVICE := tissot,tissot_sprout
+
 # ANT
 BOARD_ANT_WIRELESS_DEVICE := "vfs-prerelease"
 
