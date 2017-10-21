@@ -24,6 +24,17 @@ DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 PRODUCT_AAPT_CONFIG := normal
 PRODUCT_AAPT_PREF_CONFIG := xhdpi
 
+# A/B style
+AB_OTA_PARTITIONS += \
+    boot \
+    system
+
+AB_OTA_UPDATER := true
+
+PRODUCT_PACKAGES += \
+    update_engine \
+    update_verifier
+
 # Boot animation
 TARGET_SCREEN_HEIGHT := 1920
 TARGET_SCREEN_WIDTH := 1080
