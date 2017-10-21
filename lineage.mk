@@ -26,5 +26,5 @@ BOARD_VENDOR := Xiaomi
 PRODUCT_GMS_CLIENTID_BASE := android-xiaomi
 
 PRODUCT_BUILD_PROP_OVERRIDES += \
-    BUILD_FINGERPRINT="xiaomi/tissot/tissot_sprout:7.1.2/N2G47H/7.9.21:user/release-keys" \
-    PRIVATE_BUILD_DESC="tissot-user 7.1.2 N2G47H 7.9.21 release-keys"
+    BUILD_FINGERPRINT="xiaomi/tissot/tissot_sprout:7.1.2/N2G47H/7.10.14:user/release-keys" \
+    PRIVATE_BUILD_DESC="tissot-user 7.1.2 N2G47H 7.10.14 release-keys"
