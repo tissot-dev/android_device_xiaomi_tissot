@@ -45,10 +45,8 @@ PRODUCT_PACKAGES_DEBUG += \
 # boot_control HAL and its dependencies.
 PRODUCT_STATIC_BOOT_CONTROL_HAL := \
     bootctrl.msm8953 \
-    librecovery_updater_msm8953 \
+    librecovery_updater_msm \
     libsparse_static
-PRODUCT_PACKAGES += \
-    update_engine_sideload
 
 # A/B OTA dexopt package
 PRODUCT_PACKAGES += otapreopt_script

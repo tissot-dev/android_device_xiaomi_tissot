@@ -48,13 +48,26 @@ TARGET_COPY_OUT_VENDOR := vendor
 # Kernel
 BOARD_KERNEL_BASE := 0x80000000
 BOARD_CUSTOM_BOOTIMG_MK := $(LOCAL_PATH)/mkbootimg.mk
-BOARD_KERNEL_CMDLINE := androidboot.console=ttyHSL0 androidboot.hardware=qcom msm_rtb.filter=0x237 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 androidboot.bootdevice=7824900.sdhci earlycon=msm_hsl_uart,0x78af000
+BOARD_KERNEL_CMDLINE := androidboot.console=ttyHSL0 androidboot.hardware=qcom msm_rtb.filter=0x237 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 androidboot.bootdevice=7824900.sdhci earlycon=msm_hsl_uart,0x78af000 earlycon=msm_hsl_uart,0x78af000
 BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
+BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
 BOARD_KERNEL_PAGESIZE :=  2048
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x01000000 --tags_offset 0x00000100
-TARGET_KERNEL_CONFIG := lineageos_tissot_defconfig
+TARGET_KERNEL_CONFIG := mido_defconfig
 TARGET_KERNEL_SOURCE := kernel/xiaomi/msm8953
-TARGET_PREBUILT_KERNEL := $(LOCAL_PATH)/prebuilt/kernel
+TARGET_PREBUILT_KERNEL := $(LOCAL_PATH)/$(BOARD_KERNEL_IMAGE_NAME)
+ifeq ($(TARGET_PREBUILT_KERNEL),)
+    LOCAL_KERNEL := $(LOCAL_PATH)/Image.gz-dtb
+else
+    LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
+endif
+
+# Hack for building without kernel sources
+$(shell mkdir -p $(OUT)/obj/KERNEL_OBJ/usr)
+$(shell touch $(OUT)/obj/KERNEL_OBJ/usr/export_includes)
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_KERNEL):kernel
 
 # Assert
 TARGET_OTA_ASSERT_DEVICE := tissot,tissot_sprout
@@ -148,7 +161,7 @@ USE_OPENGL_RENDERER := true
 TARGET_ANDROID_FILESYSTEM_CONFIG_H := $(LOCAL_PATH)/android_filesystem_config.h
 BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
 TARGET_USERIMAGES_USE_EXT4 := true
-TARGET_USERIMAGES_USE_F2FS := true
+TARGET_USERIMAGES_USE_F2FS := false
 
 # FM
 BOARD_HAVE_QCOM_FM := true
@@ -166,9 +179,6 @@ TARGET_USES_MEDIA_EXTENSIONS := true
 
 # Lights
 TARGET_PROVIDES_LIBLIGHT := true
-
-# Malloc
-MALLOC_IMPL := dlmalloc
 
 # Peripheral manager
 TARGET_PER_MGR_ENABLED := true
