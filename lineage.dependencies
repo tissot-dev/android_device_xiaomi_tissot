@@ -1,0 +1,18 @@
+[
+   {
+   "repository": "android_device_qcom_common",
+   "target_path": "device/qcom/common"
+   },
+   {
+      "remote":"github",
+      "repository":"tissot-dev/android_kernel_xiaomi_msm8953",
+      "target_path":"kernel/xiaomi/msm8953",
+      "branch":"cm-14.1"
+   },
+   {
+      "remote":"github",
+      "repository":"tissot-dev/proprietary_vendor_xiaomi",
+      "target_path":"vendor/xiaomi",
+      "branch":"cm-14.1"
+   }
+]
