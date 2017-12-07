@@ -14,6 +14,8 @@
 # limitations under the License.
 #
 
+PRODUCT_SHIPPING_API_LEVEL := 25
+
 # Inherit tissot-vendor
 $(call inherit-product, vendor/xiaomi/tissot/tissot-vendor.mk)
 
@@ -25,6 +27,9 @@ PRODUCT_AAPT_CONFIG := normal
 PRODUCT_AAPT_PREF_CONFIG := xhdpi
 
 # A/B style
+PRODUCT_PACKAGES_DEBUG += \
+    update_engine_client
+
 AB_OTA_PARTITIONS += \
     boot \
     system
@@ -45,8 +50,10 @@ PRODUCT_PACKAGES_DEBUG += \
 # boot_control HAL and its dependencies.
 PRODUCT_STATIC_BOOT_CONTROL_HAL := \
     bootctrl.msm8953 \
-    librecovery_updater_msm \
+    librecovery_updater_msm8953 \
     libsparse_static
+PRODUCT_PACKAGES += \
+    update_engine_sideload
 
 # A/B OTA dexopt package
 PRODUCT_PACKAGES += otapreopt_script
