@@ -53,7 +53,13 @@ PRODUCT_STATIC_BOOT_CONTROL_HAL := \
     librecovery_updater_msm8953 \
     libsparse_static
 #PRODUCT_PACKAGES += \
-#    update_engine_sideload
+    update_engine_sideload
+
+# Bootloader HAL used for A/B updates.
+PRODUCT_PACKAGES += \
+    bootctrl.msm8996
+PRODUCT_PACKAGES_DEBUG += \
+    bootctl
 
 # A/B OTA dexopt package
 PRODUCT_PACKAGES += otapreopt_script
@@ -284,6 +290,11 @@ PRODUCT_PACKAGES += \
 # Update engine
 PRODUCT_PACKAGES += \
     brillo_update_payload
+
+# Boot control
+PRODUCT_PACKAGES += \
+    android.hardware.boot@1.0-impl \
+    android.hardware.boot@1.0-service
 
 # Sensors
 PRODUCT_COPY_FILES += \
