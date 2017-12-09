@@ -95,7 +95,7 @@ AUDIO_FEATURE_ENABLED_EXT_AMPLIFIER := false
 AUDIO_USE_LL_AS_PRIMARY_OUTPUT := true
 BOARD_SUPPORTS_SOUND_TRIGGER := true
 BOARD_USES_ALSA_AUDIO := true
-USE_CUSTOM_AUDIO_POLICY := 1
+USE_CUSTOM_AUDIO_POLICY := 0
 USE_XML_AUDIO_POLICY_CONF := 1
 
 # Bootloader
@@ -115,9 +115,9 @@ BOARD_HARDWARE_CLASS += \
     device/xiaomi/tissot/cmhw
 
 # Camera
-USE_DEVICE_SPECIFIC_CAMERA := true
-BOARD_QTI_CAMERA_32BIT_ONLY := true
-TARGET_TS_MAKEUP := true
+USE_DEVICE_SPECIFIC_CAMERA := false
+BOARD_QTI_CAMERA_32BIT_ONLY := false
+TARGET_TS_MAKEUP := false
 
 # CNE / DPM
 BOARD_USES_QCNE := true
@@ -190,13 +190,13 @@ TARGET_RIL_VARIANT := caf
 TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/rootdir/fstab.qcom
 #TARGET_RECOVERY_UI_LIB := librecovery_ui_msm
 TARGET_RECOVERY_UI_LIB := librecovery_ui_nanohub
-TARGET_RECOVERY_UPDATER_LIBS := librecovery_updater_$(TARGET_BOARD_PLATFORM)
+#TARGET_RECOVERY_UPDATER_LIBS := librecovery_updater_$(TARGET_BOARD_PLATFORM)
 
 # Sensor
 USE_SENSOR_MULTI_HAL := true
 
 # SELinux
-include device/qcom/sepolicy/sepolicy.mk
+#include device/qcom/sepolicy/sepolicy.mk
 
 # Wi-Fi
 BOARD_HAS_QCOM_WLAN := true

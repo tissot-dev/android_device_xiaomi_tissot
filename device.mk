@@ -52,8 +52,8 @@ PRODUCT_STATIC_BOOT_CONTROL_HAL := \
     bootctrl.msm8953 \
     librecovery_updater_msm8953 \
     libsparse_static
-PRODUCT_PACKAGES += \
-    update_engine_sideload
+#PRODUCT_PACKAGES += \
+#    update_engine_sideload
 
 # A/B OTA dexopt package
 PRODUCT_PACKAGES += otapreopt_script
@@ -139,10 +139,10 @@ PRODUCT_COPY_FILES += \
 	$(TOPDIR)frameworks/av/services/audiopolicy/config/usb_audio_policy_configuration.xml:/system/etc/usb_audio_policy_configuration.xml
 
 # Camera
-PRODUCT_PACKAGES += \
-    camera.msm8953 \
-    libmm-qcamera \
-    Snap
+#PRODUCT_PACKAGES += \
+ #   camera.msm8953 \
+   # libmm-qcamera \
+  #  Snap
 
 # Consumerir
 PRODUCT_PACKAGES += \
