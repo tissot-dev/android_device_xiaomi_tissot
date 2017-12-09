@@ -14,6 +14,7 @@
 # limitations under the License.
 #
 
+ifneq ($(BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE),)
 LOCAL_PATH := $(call my-dir)
 
 ifneq ($(filter tissot,$(TARGET_DEVICE)),)
@@ -88,3 +89,4 @@ $(RFS_MSM_MPSS_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
 ALL_DEFAULT_INSTALLED_MODULES += $(RFS_MSM_ADSP_SYMLINKS) $(RFS_MSM_MPSS_SYMLINKS)
 
 endif
+endif # BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE
