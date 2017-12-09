@@ -283,6 +283,7 @@ PRODUCT_PACKAGES += \
 
 # Update engine
 PRODUCT_PACKAGES += \
+    brillo_update_payload
 
 # Sensors
 PRODUCT_COPY_FILES += \
