@@ -108,11 +108,9 @@ BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_QCOM := true
 BLUETOOTH_HCI_USE_MCT := true
 
-# CMHW
-BOARD_USES_CYANOGEN_HARDWARE := true
+# Lineage Hardware
 BOARD_HARDWARE_CLASS += \
-    hardware/cyanogen/cmhw \
-    device/xiaomi/tissot/cmhw
+    $(DEVICE_PATH)/lineagehw
 
 # Camera
 USE_DEVICE_SPECIFIC_CAMERA := false
@@ -150,8 +148,8 @@ BOARD_HAVE_QCOM_FM := true
 TARGET_QCOM_NO_FM_FIRMWARE := true
 
 # GPS
+BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := true
 USE_DEVICE_SPECIFIC_GPS := true
-TARGET_NO_RPC := true
 
 # Keymaster
 TARGET_PROVIDES_KEYMASTER := true
@@ -189,7 +187,7 @@ TARGET_RIL_VARIANT := caf
 # Recovery
 TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/rootdir/fstab.qcom
 #TARGET_RECOVERY_UI_LIB := librecovery_ui_msm
-TARGET_RECOVERY_UI_LIB := librecovery_ui_nanohub
+#TARGET_RECOVERY_UI_LIB := librecovery_ui_nanohub
 #TARGET_RECOVERY_UPDATER_LIBS := librecovery_updater_$(TARGET_BOARD_PLATFORM)
 
 # Sensor
