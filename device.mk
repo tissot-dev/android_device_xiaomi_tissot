@@ -281,6 +281,9 @@ PRODUCT_PACKAGES += \
     libcnefeatureconfig \
     libxml2
 
+# Update engine
+PRODUCT_PACKAGES += \
+
 # Sensors
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/sensors/hals.conf:system/etc/sensors/hals.conf \
