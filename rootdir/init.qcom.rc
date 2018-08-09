@@ -1162,6 +1162,7 @@ service qseeproxydaemon /system/vendor/bin/qseeproxydaemon
     class late_start
     user system
     group system
+    disabled
 
 service esepmdaemon /system/vendor/bin/esepmdaemon
     class core
