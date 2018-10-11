@@ -1,0 +1,29 @@
+type goodixfingerprintd, domain;
+
+allow debuggerd goodixfingerprintd:process { getattr ptrace };
+allow fingerprintd goodixfingerprintd:binder { transfer call };
+allow fingerprintd goodixfingerprintd:fd use;
+allow goodixfingerprintd goodixfingerprintd:capability { dac_read_search dac_override };
+allow goodixfingerprintd goodixfingerprintd:dir { search read lock getattr ioctl open };
+allow goodixfingerprintd goodixfingerprintd:fd use;
+allow goodixfingerprintd goodixfingerprintd:fifo_file { read lock getattr write ioctl open append };
+allow goodixfingerprintd goodixfingerprintd:file { read lock getattr write ioctl open append };
+allow goodixfingerprintd goodixfingerprintd:lnk_file { read lock ioctl open getattr };
+allow goodixfingerprintd goodixfingerprintd:netlink_socket { setopt read bind create write getattr };
+allow goodixfingerprintd goodixfingerprintd:process { fork getsession sigkill sigchld setpgid setsched signal getattr setcap sigstop execmem getcap getpgid getsched signull setrlimit };
+allow goodixfingerprintd goodixfingerprintd:unix_dgram_socket { setopt setattr read lock create sendto getattr write ioctl connect shutdown bind getopt append };
+allow goodixfingerprintd goodixfingerprintd:unix_stream_socket { connectto setopt setattr read lock create getattr accept write ioctl connect shutdown bind getopt append listen };
+allow init goodixfingerprintd:process { siginh rlimitinh transition noatsecure };
+allow servicemanager goodixfingerprintd:binder transfer;
+allow servicemanager goodixfingerprintd:dir search;
+allow servicemanager goodixfingerprintd:file { read open };
+allow servicemanager goodixfingerprintd:process getattr;
+allow system_app goodixfingerprintd:binder { transfer call };
+allow system_app goodixfingerprintd:fd use;
+allow system_server goodixfingerprintd:binder { transfer call };
+allow system_server goodixfingerprintd:fd use;
+
+type goodixfingerprintd_exec, file_type, exec_type;
+
+allow goodixfingerprintd goodixfingerprintd_exec:file { read open getattr entrypoint execute };
+allow init goodixfingerprintd_exec:file { read getattr open execute };

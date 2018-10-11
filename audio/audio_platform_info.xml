@@ -60,12 +60,13 @@
         <device name="SND_DEVICE_OUT_VOICE_HEADPHONES" acdb_id="52"/>
         <device name="SND_DEVICE_OUT_BT_SCO" acdb_id="66"/>
         <device name="SND_DEVICE_OUT_BT_SCO_WB" acdb_id="578"/>
-        <device name="SND_DEVICE_OUT_VOICE_TX" acdb_id="52"/>
+        <device name="SND_DEVICE_OUT_VOICE_TX" acdb_id="100"/>
         <device name="SND_DEVICE_IN_HANDSET_MIC" acdb_id="19"/>
         <device name="SND_DEVICE_IN_HANDSET_DMIC" acdb_id="41"/>
         <device name="SND_DEVICE_IN_SPEAKER_MIC" acdb_id="35"/>
         <device name="SND_DEVICE_IN_SPEAKER_DMIC" acdb_id="37"/>
         <device name="SND_DEVICE_IN_HEADSET_MIC" acdb_id="51"/>
+        <device name="SND_DEVICE_IN_HEADSET_MIC_FLUENCE" acdb_id="51"/>
         <device name="SND_DEVICE_IN_VOICE_SPEAKER_MIC" acdb_id="291"/>
         <device name="SND_DEVICE_IN_VOICE_HEADSET_MIC" acdb_id="307"/>
         <device name="SND_DEVICE_IN_BT_SCO_MIC" acdb_id="323"/>
@@ -75,7 +76,7 @@
         <device name="SND_DEVICE_IN_CAMCORDER_MIC" acdb_id="4"/>
         <device name="SND_DEVICE_IN_VOICE_DMIC" acdb_id="277"/>
         <device name="SND_DEVICE_IN_VOICE_SPEAKER_DMIC" acdb_id="293"/>
-        <device name="SND_DEVICE_IN_VOICE_RX" acdb_id="307"/>
+        <device name="SND_DEVICE_IN_VOICE_RX" acdb_id="357"/>
         <device name="SND_DEVICE_IN_VOICE_REC_MIC" acdb_id="4"/>
         <device name="SND_DEVICE_IN_CAPTURE_FM" acdb_id="0"/>
         <device name="SND_DEVICE_IN_CAPTURE_VI_FEEDBACK" acdb_id="102"/>

@@ -1,0 +1,8 @@
+type sysfs_cabc_ctl, fs_type, sysfs_type;
+
+allow init sysfs_cabc_ctl:dir { read search open setattr };
+allow init sysfs_cabc_ctl:file { read open setattr };
+allow platform_app sysfs_cabc_ctl:file { read lock getattr write ioctl open append };
+allow sysfs_cabc_ctl sysfs_cabc_ctl:filesystem associate;
+allow system_app sysfs_cabc_ctl:file { read lock getattr write ioctl open append };
+allow system_server sysfs_cabc_ctl:file { read lock getattr write ioctl open append };

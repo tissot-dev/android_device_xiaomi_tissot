@@ -1,0 +1,25 @@
+type displayfeature, binderservicedomain, domain;
+
+allow binderservicedomain displayfeature:binder transfer;
+allow debuggerd displayfeature:process { getattr ptrace };
+allow displayfeature binderservicedomain:binder { transfer call };
+allow displayfeature binderservicedomain:fd use;
+allow displayfeature displayfeature:capability dac_override;
+allow displayfeature displayfeature:dir { search read lock getattr ioctl open };
+allow displayfeature displayfeature:fd use;
+allow displayfeature displayfeature:fifo_file { read lock getattr write ioctl open append };
+allow displayfeature displayfeature:file { read lock getattr write ioctl open append };
+allow displayfeature displayfeature:lnk_file { read lock ioctl open getattr };
+allow displayfeature displayfeature:process { fork getsession sigkill sigchld setpgid setsched signal getattr setcap sigstop getcap getpgid getsched signull setrlimit };
+allow displayfeature displayfeature:unix_dgram_socket { setopt setattr read lock create sendto getattr write ioctl connect shutdown bind getopt append };
+allow displayfeature displayfeature:unix_stream_socket { connectto setopt setattr read lock create getattr accept write ioctl connect shutdown bind getopt append listen };
+allow init displayfeature:process { siginh rlimitinh transition noatsecure };
+allow servicemanager displayfeature:binder transfer;
+allow servicemanager displayfeature:dir search;
+allow servicemanager displayfeature:file { read open };
+allow servicemanager displayfeature:process getattr;
+
+type displayfeature_exec, file_type, exec_type;
+
+allow displayfeature displayfeature_exec:file { read open getattr entrypoint execute };
+allow init displayfeature_exec:file { read getattr open execute };

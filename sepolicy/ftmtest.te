@@ -1,0 +1,20 @@
+type ftmtest, domain;
+
+allow debuggerd ftmtest:process { getattr ptrace };
+allow ftmtest ftmtest:capability { net_raw dac_override };
+allow ftmtest ftmtest:dir { search read lock getattr ioctl open };
+allow ftmtest ftmtest:fd use;
+allow ftmtest ftmtest:fifo_file { read lock getattr write ioctl open append };
+allow ftmtest ftmtest:file { read lock getattr write ioctl open append };
+allow ftmtest ftmtest:lnk_file { read lock ioctl open getattr };
+allow ftmtest ftmtest:process { fork getsession sigkill sigchld setpgid setsched signal getattr setcap sigstop getcap getpgid getsched signull setrlimit };
+allow ftmtest ftmtest:tcp_socket { read bind create accept write getattr getopt listen };
+allow ftmtest ftmtest:unix_dgram_socket { setopt setattr read lock create sendto getattr write ioctl connect shutdown bind getopt append };
+allow ftmtest ftmtest:unix_stream_socket { connectto setopt setattr read lock create getattr accept write ioctl connect shutdown bind getopt append listen };
+allow init ftmtest:process { siginh rlimitinh transition noatsecure };
+allow servicemanager ftmtest:binder transfer;
+
+type ftmtest_exec, file_type, exec_type;
+
+allow ftmtest ftmtest_exec:file { read open getattr entrypoint execute };
+allow init ftmtest_exec:file { read getattr open execute };

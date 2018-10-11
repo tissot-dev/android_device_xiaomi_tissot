@@ -1,0 +1,18 @@
+type PcbaConfigSet, domain;
+
+allow PcbaConfigSet PcbaConfigSet:dir { search read lock getattr ioctl open };
+allow PcbaConfigSet PcbaConfigSet:fd use;
+allow PcbaConfigSet PcbaConfigSet:fifo_file { read lock getattr write ioctl open append };
+allow PcbaConfigSet PcbaConfigSet:file { read lock getattr write ioctl open append };
+allow PcbaConfigSet PcbaConfigSet:lnk_file { read lock ioctl open getattr };
+allow PcbaConfigSet PcbaConfigSet:process { fork getsession sigkill sigchld setpgid setsched signal getattr setcap sigstop getcap getpgid getsched signull setrlimit };
+allow PcbaConfigSet PcbaConfigSet:unix_dgram_socket { setopt setattr read lock create sendto getattr write ioctl connect shutdown bind getopt append };
+allow PcbaConfigSet PcbaConfigSet:unix_stream_socket { connectto setopt setattr read lock create getattr accept write ioctl connect shutdown bind getopt append listen };
+allow debuggerd PcbaConfigSet:process { getattr ptrace };
+allow init PcbaConfigSet:process { siginh rlimitinh transition noatsecure };
+allow servicemanager PcbaConfigSet:binder transfer;
+
+type PcbaConfigSet_exec, file_type, exec_type;
+
+allow PcbaConfigSet PcbaConfigSet_exec:file { read open getattr entrypoint execute };
+allow init PcbaConfigSet_exec:file { read getattr open execute };

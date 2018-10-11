@@ -1,5 +1,5 @@
 #!/system/bin/sh
-# Copyright (c) 2012-2013, 2016-2017 The Linux Foundation. All rights reserved.
+# Copyright (c) 2012-2013, 2016, The Linux Foundation. All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -130,31 +130,6 @@ function configure_memory_parameters() {
         mkswap /data/system/swap/swapfile
         swapon /data/system/swap/swapfile -p 32758
     fi
-}
-
-function set_rt_bandwidth()
-{
-        # The default RT bandwidth setttings for bg_non_interactive cgroup
-        # is 10 msec/1 sec. There should not be any active RT tasks in this
-        # cgroup, so the limited bandwidth is not a concern. But the tasks
-        # in this cgroup can be boosted to RT priority when they acquire a
-        # RT mutex. The RT throttling is exempted for boosted tasks, but when
-        # a kernel debug feature is turned on, we hit panic. We can opt out
-        # of  panic when a RT runqueue has boosted tasks, but that would mean
-        # a task acquiring a RT mutex can run for a very long time without
-        # getting noticed. Instead set the bg_non_interactive cgroup RT
-        # bandwidth settings to same as the root cgroup settings.
-
-        if [ ! -f /dev/cpuctl/bg_non_interactive/cpu.rt_runtime_us ]; then
-              return
-        fi
-
-        if [ ! -f /dev/cpuctl/cpu.rt_runtime_us ]; then
-              return
-        fi
-
-        rt_runtime=`cat /dev/cpuctl/cpu.rt_runtime_us`
-        echo $rt_runtime > /dev/cpuctl/bg_non_interactive/cpu.rt_runtime_us
 }
 
 case "$target" in
@@ -1130,8 +1105,6 @@ esac
 case "$target" in
     "msm8953")
 
-        set_rt_bandwidth
-
         if [ -f /sys/devices/soc0/soc_id ]; then
             soc_id=`cat /sys/devices/soc0/soc_id`
         else
@@ -1145,7 +1118,7 @@ case "$target" in
         fi
 
         case "$soc_id" in
-            "293" | "304" | "338" )
+            "293" | "304" )
 
                 # Start Host based Touch processing
                 case "$hw_platform" in
@@ -1347,8 +1320,6 @@ esac
 
 case "$target" in
     "msm8937")
-
-        set_rt_bandwidth
 
         if [ -f /sys/devices/soc0/soc_id ]; then
             soc_id=`cat /sys/devices/soc0/soc_id`
@@ -1918,8 +1889,6 @@ esac
 
 case "$target" in
     "msm8996")
-        set_rt_bandwidth
-
         # disable thermal bcl hotplug to switch governor
         echo 0 > /sys/module/msm_thermal/core_control/enabled
         echo -n disable > /sys/devices/soc/soc:qcom,bcl/mode
@@ -2032,9 +2001,25 @@ case "$target" in
 esac
 
 case "$target" in
-    "msm8998")
-
-        set_rt_bandwidth
+    "msmcobalt")
+	soc_revision=`cat /sys/devices/soc0/revision`
+	if [ "$soc_revision" == "1.0" ]; then
+		# Retention modes on v1.x are experimental but not PoR
+		# C2d, D2d, D2e retention modes are disbled
+		echo N > /sys/module/lpm_levels/system/pwr/cpu0/ret/idle_enabled
+		echo N > /sys/module/lpm_levels/system/pwr/cpu1/ret/idle_enabled
+		echo N > /sys/module/lpm_levels/system/pwr/cpu2/ret/idle_enabled
+		echo N > /sys/module/lpm_levels/system/pwr/cpu3/ret/idle_enabled
+		echo N > /sys/module/lpm_levels/system/perf/cpu4/ret/idle_enabled
+		echo N > /sys/module/lpm_levels/system/perf/cpu5/ret/idle_enabled
+		echo N > /sys/module/lpm_levels/system/perf/cpu6/ret/idle_enabled
+		echo N > /sys/module/lpm_levels/system/perf/cpu7/ret/idle_enabled
+		echo N > /sys/module/lpm_levels/system/pwr/pwr-l2-dynret/idle_enabled
+		echo N > /sys/module/lpm_levels/system/pwr/pwr-l2-ret/idle_enabled
+		echo N > /sys/module/lpm_levels/system/perf/perf-l2-dynret/idle_enabled
+		echo N > /sys/module/lpm_levels/system/perf/perf-l2-ret/idle_enabled
+		#Enable all LPMs by default
+	fi
 
 	echo 2 > /sys/devices/system/cpu/cpu4/core_ctl/min_cpus
 	echo 60 > /sys/devices/system/cpu/cpu4/core_ctl/busy_up_thres
@@ -2053,12 +2038,6 @@ case "$target" in
 	echo 5 > /proc/sys/kernel/sched_spill_nr_run
 	echo 1 > /proc/sys/kernel/sched_restrict_cluster_spill
 	start iop
-
-        # disable thermal bcl hotplug to switch governor
-        echo 0 > /sys/module/msm_thermal/core_control/enabled
-
-        # online CPU0
-        echo 1 > /sys/devices/system/cpu/cpu0/online
 	# configure governor settings for little cluster
 	echo "interactive" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
 	echo 1 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/use_sched_load
@@ -2073,8 +2052,6 @@ case "$target" in
 	echo 79000 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/max_freq_hysteresis
 	echo 300000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
 	echo 1 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/ignore_hispeed_on_notif
-        # online CPU4
-        echo 1 > /sys/devices/system/cpu/cpu4/online
 	# configure governor settings for big cluster
 	echo "interactive" > /sys/devices/system/cpu/cpu4/cpufreq/scaling_governor
 	echo 1 > /sys/devices/system/cpu/cpu4/cpufreq/interactive/use_sched_load
@@ -2089,9 +2066,6 @@ case "$target" in
 	echo 79000 > /sys/devices/system/cpu/cpu4/cpufreq/interactive/max_freq_hysteresis
 	echo 300000 > /sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq
 	echo 1 > /sys/devices/system/cpu/cpu4/cpufreq/interactive/ignore_hispeed_on_notif
-
-        # re-enable thermal and BCL hotplug
-        echo 1 > /sys/module/msm_thermal/core_control/enabled
 
         # Enable input boost configuration
         echo "0:1324800" > /sys/module/cpu_boost/parameters/input_boost_freq
@@ -2135,7 +2109,7 @@ case "$target" in
 	fi
 
 	case "$soc_id" in
-		"292") #msm8998
+		"292") #msmcobalt
 		# Start Host based Touch processing
 		case "$hw_platform" in
 		"QRD")
@@ -2144,27 +2118,12 @@ case "$target" in
 		esac
 	    ;;
 	esac
-
-	echo N > /sys/module/lpm_levels/system/pwr/cpu0/ret/idle_enabled
-	echo N > /sys/module/lpm_levels/system/pwr/cpu1/ret/idle_enabled
-	echo N > /sys/module/lpm_levels/system/pwr/cpu2/ret/idle_enabled
-	echo N > /sys/module/lpm_levels/system/pwr/cpu3/ret/idle_enabled
-	echo N > /sys/module/lpm_levels/system/perf/cpu4/ret/idle_enabled
-	echo N > /sys/module/lpm_levels/system/perf/cpu5/ret/idle_enabled
-	echo N > /sys/module/lpm_levels/system/perf/cpu6/ret/idle_enabled
-	echo N > /sys/module/lpm_levels/system/perf/cpu7/ret/idle_enabled
-	echo N > /sys/module/lpm_levels/system/pwr/pwr-l2-dynret/idle_enabled
-	echo N > /sys/module/lpm_levels/system/pwr/pwr-l2-ret/idle_enabled
-	echo N > /sys/module/lpm_levels/system/perf/perf-l2-dynret/idle_enabled
-	echo N > /sys/module/lpm_levels/system/perf/perf-l2-ret/idle_enabled
 	echo N > /sys/module/lpm_levels/parameters/sleep_disabled
     ;;
 esac
 
 case "$target" in
     "msm8909")
-
-        set_rt_bandwidth
 
         if [ -f /sys/devices/soc0/soc_id ]; then
            soc_id=`cat /sys/devices/soc0/soc_id`
@@ -2274,7 +2233,7 @@ case "$target" in
         start mpdecision
         echo 512 > /sys/block/mmcblk0/bdi/read_ahead_kb
     ;;
-    "msm8994" | "msm8992" | "msm8996" | "msm8998")
+    "msm8994" | "msm8992" | "msm8996" | "msmcobalt")
         setprop sys.post_boot.parsed 1
     ;;
     "apq8084")
@@ -2350,15 +2309,6 @@ case "$target" in
         echo 5120 > /proc/sys/vm/min_free_kbytes
      ;;
 esac
-
-
-#judge version,user or other
-version_type=`getprop ro.build.type`
-if [ "$version_type" == "user" ] ; then
-    echo 2 > /sys/module/lowmemorykiller/parameters/get_version
-else
-    echo 3 > /sys/module/lowmemorykiller/parameters/get_version
-fi
 
 # Let kernel know our image version/variant/crm_version
 if [ -f /sys/devices/soc0/select_image ]; then
