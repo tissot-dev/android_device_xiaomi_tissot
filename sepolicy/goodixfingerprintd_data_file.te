@@ -1,0 +1,15 @@
+type goodixfingerprintd_data_file, file_type, data_file_type;
+
+allow goodixfingerprintd goodixfingerprintd_data_file:dir { rename search setattr read lock create reparent getattr write ioctl rmdir remove_name open add_name };
+allow goodixfingerprintd goodixfingerprintd_data_file:fifo_file { rename setattr read lock create getattr write ioctl unlink open append };
+allow goodixfingerprintd goodixfingerprintd_data_file:file { rename setattr read lock create getattr write ioctl unlink open append };
+allow goodixfingerprintd goodixfingerprintd_data_file:lnk_file { rename setattr read lock create getattr write ioctl unlink open append };
+allow goodixfingerprintd goodixfingerprintd_data_file:sock_file { rename setattr read lock create getattr write ioctl unlink open append };
+allow init goodixfingerprintd_data_file:blk_file relabelto;
+allow init goodixfingerprintd_data_file:chr_file relabelto;
+allow init goodixfingerprintd_data_file:dir { search setattr read create getattr write relabelfrom ioctl rmdir remove_name relabelto open add_name };
+allow init goodixfingerprintd_data_file:fifo_file { setattr read create relabelfrom getattr relabelto unlink open };
+allow init goodixfingerprintd_data_file:file { setattr read create write relabelfrom getattr relabelto unlink open };
+allow init goodixfingerprintd_data_file:lnk_file { setattr relabelfrom create getattr relabelto unlink };
+allow init goodixfingerprintd_data_file:sock_file { setattr read create relabelfrom getattr relabelto unlink open };
+allow system_server goodixfingerprintd_data_file:dir { search read lock getattr ioctl relabelto open };

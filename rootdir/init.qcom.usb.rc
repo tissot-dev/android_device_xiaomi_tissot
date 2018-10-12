@@ -53,7 +53,6 @@ on boot
     mkdir /config/usb_gadget/g1/functions/gsi.rndis
     mkdir /config/usb_gadget/g1/functions/gsi.dpl
     mkdir /config/usb_gadget/g1/functions/qdss.qdss
-    mkdir /config/usb_gadget/g1/functions/rndis_bam.rndis
     mkdir /config/usb_gadget/g1/functions/ncm.0
     mkdir /config/usb_gadget/g1/configs/b.1 0770 shell shell
     mkdir /config/usb_gadget/g1/configs/b.1/strings/0x409 0770 shell shell
@@ -1584,34 +1583,3 @@ on property:sys.usb.config=diag,diag_mdm,serial_tty,rmnet_qti_ether,dpl_ether,ma
     write /sys/class/android_usb/android0/functions diag,serial,rmnet,qdss,mass_storage
     write /sys/class/android_usb/android0/enable 1
     setprop sys.usb.state ${sys.usb.config}
-
-on property:sys.usb.config=diag,adb,uac2
-    write /sys/class/android_usb/android0/enable 0
-    write /sys/class/android_usb/android0/idVendor 05C6
-    write /sys/class/android_usb/android0/idProduct 90CA
-    write /sys/class/android_usb/android0/f_diag/clients diag
-    write /sys/class/android_usb/android0/functions diag,adb,uac2_func
-    write /sys/class/android_usb/android0/enable 1
-    start adbd
-    setprop sys.usb.state ${sys.usb.config}
-
-on property:sys.usb.config=diag,adb,video && property:sys.usb.configfs=0
-    write /sys/class/android_usb/android0/enable 0
-    write /sys/class/android_usb/android0/idVendor 05C6
-    write /sys/class/android_usb/android0/idProduct 90CB
-    write /sys/class/android_usb/android0/f_diag/clients diag
-    write /sys/class/android_usb/android0/functions diag,adb,video
-    write /sys/class/android_usb/android0/enable 1
-    start adbd
-    setprop sys.usb.state ${sys.usb.config}
-
-on property:sys.usb.config=diag,adb,uac2,video && property:sys.usb.configfs=0
-    write /sys/class/android_usb/android0/enable 0
-    write /sys/class/android_usb/android0/idVendor 05C6
-    write /sys/class/android_usb/android0/idProduct 90CC
-    write /sys/class/android_usb/android0/f_diag/clients diag
-    write /sys/class/android_usb/android0/functions diag,adb,uac2_func,video
-    write /sys/class/android_usb/android0/enable 1
-    start adbd
-    setprop sys.usb.state ${sys.usb.config}
-

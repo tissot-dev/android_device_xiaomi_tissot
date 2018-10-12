@@ -1,0 +1,20 @@
+type bootloader_block_device, dev_type;
+
+allow init bootloader_block_device:chr_file { read open setattr };
+allow update_engine bootloader_block_device:blk_file { read lock getattr write ioctl open append };
+
+type modem_block_device, dev_type;
+
+allow boot_control_hal modem_block_device:blk_file getattr;
+allow init modem_block_device:chr_file { read open setattr };
+allow update_engine modem_block_device:blk_file { read lock getattr write ioctl open append };
+
+type smartpa_device, dev_type;
+allow ftmtest smartpa_device:chr_file { getattr setattr };
+allow init smartpa_device:chr_file { read open setattr };
+allow system_app smartpa_device:chr_file { read lock getattr write ioctl open append };
+
+allow update_verifier boot_block_device:blk_file getattr;
+allow update_verifier root_block_device:blk_file { ioctl open read write };
+allow update_verifier system_file:lnk_file getattr;
+

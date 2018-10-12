@@ -1,0 +1,2 @@
+allow bootstat system_file:lnk_file getattr;
+

@@ -1,0 +1,90 @@
+# Bluetooth firmware
+/bt_firmware	u:object_r:bt_firmware_file:s0
+
+# Indian, Chinese and global props
+/india\.prop	u:object_r:rootfs:s0
+/global\.prop	u:object_r:rootfs:s0
+/cn\.prop	u:object_r:rootfs:s0
+
+# Fingerprintd
+/data/mediadrm/0(/.*)?	u:object_r:goodixfingerprintd_data_file:s0
+
+# Partitions
+/dev/block/platform/soc/7824900.sdhci/by-name/abootbak	u:object_r:bootloader_block_device:s0
+/dev/block/platform/soc/7824900.sdhci/by-name/aboot	u:object_r:bootloader_block_device:s0
+/dev/block/platform/soc/7824900.sdhci/by-name/boot_a	u:object_r:boot_block_device:s0
+/dev/block/platform/soc/7824900.sdhci/by-name/boot_b	u:object_r:boot_block_device:s0
+/dev/block/platform/soc/7824900.sdhci/by-name/boot	u:object_r:boot_block_device:s0
+/dev/block/platform/soc/7824900.sdhci/by-name/cache	u:object_r:cache_block_device:s0
+/dev/block/platform/soc/7824900.sdhci/by-name/cmnlib64bak	u:object_r:bootloader_block_device:s0
+/dev/block/platform/soc/7824900.sdhci/by-name/cmnlib64	u:object_r:bootloader_block_device:s0
+/dev/block/platform/soc/7824900.sdhci/by-name/cmnlibbak	u:object_r:bootloader_block_device:s0
+/dev/block/platform/soc/7824900.sdhci/by-name/cmnlib	u:object_r:bootloader_block_device:s0
+/dev/block/platform/soc/7824900.sdhci/by-name/config	u:object_r:frp_block_device:s0
+/dev/block/platform/soc/7824900.sdhci/by-name/devcfgbak	u:object_r:bootloader_block_device:s0
+/dev/block/platform/soc/7824900.sdhci/by-name/devcfg	u:object_r:bootloader_block_device:s0
+/dev/block/platform/soc/7824900.sdhci/by-name/dip	u:object_r:dip_device:s0
+/dev/block/platform/soc/7824900.sdhci/by-name/fsc	u:object_r:modem_efs_partition_device:s0
+/dev/block/platform/soc/7824900.sdhci/by-name/fsg	u:object_r:modem_efs_partition_device:s0
+/dev/block/platform/soc/7824900.sdhci/by-name/keymasterbak	u:object_r:bootloader_block_device:s0
+/dev/block/platform/soc/7824900.sdhci/by-name/keymaster	u:object_r:bootloader_block_device:s0
+/dev/block/platform/soc/7824900.sdhci/by-name/lksecappbak	u:object_r:bootloader_block_device:s0
+/dev/block/platform/soc/7824900.sdhci/by-name/lksecapp	u:object_r:bootloader_block_device:s0
+/dev/block/platform/soc/7824900.sdhci/by-name/logdump	u:object_r:logdump_partition:s0
+/dev/block/platform/soc/7824900.sdhci/by-name/mdtp	u:object_r:mdtp_device:s0
+/dev/block/platform/soc/7824900.sdhci/by-name/misc	u:object_r:misc_block_device:s0
+/dev/block/platform/soc/7824900.sdhci/by-name/modem_a	u:object_r:modem_block_device:s0
+/dev/block/platform/soc/7824900.sdhci/by-name/modem_b	u:object_r:modem_block_device:s0
+/dev/block/platform/soc/7824900.sdhci/by-name/modemst1	u:object_r:modem_efs_partition_device:s0
+/dev/block/platform/soc/7824900.sdhci/by-name/modemst2	u:object_r:modem_efs_partition_device:s0
+/dev/block/platform/soc/7824900.sdhci/by-name/rawdump	u:object_r:rawdump_block_device:s0
+/dev/block/platform/soc/7824900.sdhci/by-name/recovery	u:object_r:recovery_block_device:s0
+/dev/block/platform/soc/7824900.sdhci/by-name/rpmbak	u:object_r:bootloader_block_device:s0
+/dev/block/platform/soc/7824900.sdhci/by-name/rpm	u:object_r:bootloader_block_device:s0
+/dev/block/platform/soc/7824900.sdhci/by-name/sbl1bak	u:object_r:bootloader_block_device:s0
+/dev/block/platform/soc/7824900.sdhci/by-name/sbl1	u:object_r:bootloader_block_device:s0
+/dev/block/platform/soc/7824900.sdhci/by-name/ssd	u:object_r:ssd_device:s0
+/dev/block/platform/soc/7824900.sdhci/by-name/system_a	u:object_r:system_block_device:s0
+/dev/block/platform/soc/7824900.sdhci/by-name/system_b	u:object_r:system_block_device:s0
+/dev/block/platform/soc/7824900.sdhci/by-name/system	u:object_r:system_block_device:s0
+/dev/block/platform/soc/7824900.sdhci/by-name/tzbak	u:object_r:bootloader_block_device:s0
+/dev/block/platform/soc/7824900.sdhci/by-name/tz	u:object_r:bootloader_block_device:s0
+/dev/block/platform/soc/7824900.sdhci/by-name/userdata	u:object_r:userdata_block_device:s0
+/dev/block/mmcblk0p22                                   u:object_r:boot_block_device:s0
+
+# MaxDSM
+/dev/dsm_ctrl_dev	u:object_r:smartpa_device:s0
+
+# Fingerprint device
+/dev/goodix_fp	u:object_r:goodixfingerprintd_device:s0
+
+# Firmware
+/firmware	u:object_r:firmware_file:s0
+
+# CABC control, whatever that is
+/sys/bus/i2c/devices/3-0038/set_cover_mode	u:object_r:sysfs_cabc_ctl:s0
+/sys/class/graphics/fb0/msm_fb_dispparam	u:object_r:sysfs_cabc_ctl:s0
+/sys/class/touch/sys/mode_cover			u:object_r:sysfs_cabc_ctl:s0
+
+# TODO: Comment the following
+/sys/devices/soc/78b7000.i2c/i2c-3/3-0020/input/input2/f54/ito_test_result	u:object_r:sysfs_ito:s0
+/sys/devices/soc/78b7000.i2c/i2c-3/3-0020/input/input2/f54/read_report	u:object_r:sysfs_ito:s0
+/sys/devices/soc/78b7000.i2c/i2c-3/3-0038/ftsmcaptest	u:object_r:sysfs_ito:s0
+/sys/devices/soc/78b7000.i2c/i2c-3/3-0040/fts_test	u:object_r:sysfs_ito:s0
+
+/sys/devices/virtual/touch/cmcs/cmcs_test_all	u:object_r:sysfs_ito:s0
+/system/bin/chmodtp	u:object_r:ftmtest_exec:s0
+/system/bin/displayfeature	u:object_r:displayfeature_exec:s0
+/system/bin/factory_bin	u:object_r:ftmtest_exec:s0
+/system/bin/getcolorid	u:object_r:ftmtest_exec:s0
+/system/bin/getsn_xiaomi	u:object_r:ftmtest_exec:s0
+/system/bin/goodixfingerprintd	u:object_r:goodixfingerprintd_exec:s0
+
+/system/bin/PcbaConfigSet	u:object_r:PcbaConfigSet_exec:s0
+
+/system/bin/resize2fs	u:object_r:resize2fs_exec:s0
+
+/system/vendor/bin/RIDLClient.exe	u:object_r:RIDL_exec:s0
+
+/system/etc/init.qcom.bt.sh       u:object_r:bluetooth_loader_exec:s0
+

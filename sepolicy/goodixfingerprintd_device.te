@@ -1,0 +1,4 @@
+type goodixfingerprintd_device, dev_type;
+
+allow goodixfingerprintd goodixfingerprintd_device:chr_file { read lock getattr write ioctl open append };
+allow init goodixfingerprintd_device:chr_file { read open setattr };

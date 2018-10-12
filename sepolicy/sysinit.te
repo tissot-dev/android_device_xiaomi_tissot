@@ -1,0 +1,2 @@
+allow sysinit system_file:lnk_file getattr;
+

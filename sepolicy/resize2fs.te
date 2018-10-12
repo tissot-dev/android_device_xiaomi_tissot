@@ -1,0 +1,18 @@
+type resize2fs, domain;
+
+allow debuggerd resize2fs:process { getattr ptrace };
+allow init resize2fs:process { siginh rlimitinh transition noatsecure };
+allow resize2fs resize2fs:dir { search read lock getattr ioctl open };
+allow resize2fs resize2fs:fd use;
+allow resize2fs resize2fs:fifo_file { read lock getattr write ioctl open append };
+allow resize2fs resize2fs:file { read lock getattr write ioctl open append };
+allow resize2fs resize2fs:lnk_file { read lock ioctl open getattr };
+allow resize2fs resize2fs:process { fork getsession sigkill sigchld setpgid setsched signal getattr setcap sigstop getcap getpgid getsched signull setrlimit };
+allow resize2fs resize2fs:unix_dgram_socket { setopt setattr read lock create sendto getattr write ioctl connect shutdown bind getopt append };
+allow resize2fs resize2fs:unix_stream_socket { connectto setopt setattr read lock create getattr accept write ioctl connect shutdown bind getopt append listen };
+allow servicemanager resize2fs:binder transfer;
+
+type resize2fs_exec, file_type, exec_type;
+
+allow init resize2fs_exec:file { read getattr open execute };
+allow resize2fs resize2fs_exec:file { read open getattr entrypoint execute };

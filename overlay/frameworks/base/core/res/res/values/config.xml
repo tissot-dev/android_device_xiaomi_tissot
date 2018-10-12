@@ -21,6 +21,14 @@
          Software implementation will be used if config_hardware_auto_brightness_available is not set -->
     <bool name="config_automatic_brightness_available">true</bool>
 
+    <!-- Stability requirements in milliseconds for accepting a new brightness level.  This is used
+         for debouncing the light sensor.  Different constants are used to debounce the light sensor
+         when adapting to brighter or darker environments.  This parameter controls how quickly
+         brightness changes occur in response to an observed change in light level that exceeds the
+         hysteresis threshold. -->
+    <integer name="config_autoBrightnessBrighteningLightDebounce">2000</integer>
+    <integer name="config_autoBrightnessDarkeningLightDebounce">4000</integer>
+
     <!-- Array of light sensor LUX values to define our levels for auto backlight brightness support.
          The N entries of this array define N + 1 control points as follows:
          (1-based arrays)
@@ -38,13 +46,31 @@
          backlight values for LUX levels between these control points.
          Must be overridden in platform specific overlays -->
     <integer-array name="config_autoBrightnessLevels">
-        <item>10</item>
-        <item>30</item>
-        <item>60</item>
-        <item>100</item>
-        <item>150</item>
-        <item>210</item>
-        <item>255</item>
+    	
+         <item>1</item>
+         <item>2</item>
+         <item>3</item>
+         <item>4</item>
+         <item>5</item>
+         <item>6</item>
+         <item>8</item>
+         <item>13</item>
+         <item>17</item>
+         <item>21</item>
+         <item>26</item>
+         <item>30</item>
+         <item>34</item>
+         <item>140</item>
+         <item>310</item>
+         <item>400</item>
+         <item>500</item>
+         <item>600</item>
+         <item>1000</item>
+         <item>1200</item>
+         <item>1500</item>
+         <item>3000</item>
+         <item>3500</item>
+         <item>4000</item>
     </integer-array>
 
     <!-- Array of output values for LCD backlight corresponding to the LUX values
@@ -53,14 +79,31 @@
          The brightness values must be between 0 and 255 and be non-decreasing.
          This must be overridden in platform specific overlays -->
     <integer-array name="config_autoBrightnessLcdBacklightValues">
-        <item>10</item>
-        <item>20</item>
-        <item>40</item>
-        <item>70</item>
-        <item>110</item>
-        <item>160</item>
-        <item>200</item>
-        <item>255</item>
+         <item>2</item>
+         <item>2</item>
+         <item>2</item>
+         <item>3</item>
+         <item>3</item>
+         <item>5</item>
+         <item>5</item>
+         <item>12</item>
+         <item>12</item>
+         <item>20</item>
+         <item>20</item>
+         <item>39</item>
+         <item>39</item>
+         <item>43</item>
+         <item>43</item>
+         <item>55</item>
+         <item>55</item>
+         <item>63</item>
+         <item>63</item>
+         <item>84</item>
+         <item>93</item>
+         <item>105</item>
+         <item>200</item>
+         <item>240</item>
+         <item>255</item>
     </integer-array>
 
     <!-- Screen brightness used to dim the screen when the user activity
@@ -80,6 +123,15 @@
 
     <!-- Is the notification LED intrusive? Used to decide if there should be a disable option -->
     <bool name="config_intrusiveNotificationLed">true</bool>
+ 
+    <!-- Default value for led color when battery is low on charge -->
+    <integer name="config_notificationsBatteryLowARGB">0xFFFFFFFF</integer>
+
+    <!-- Default value for led color when battery is medium charged -->
+    <integer name="config_notificationsBatteryMediumARGB">0xFFFFFFFF</integer>
+
+    <!-- Default value for led color when battery is fully charged -->
+    <integer name="config_notificationsBatteryFullARGB">0xFFFFFFFF</integer>
 
     <!-- Is the battery LED intrusive? Used to decide if there should be a disable option -->
     <bool name="config_intrusiveBatteryLed">true</bool>
@@ -90,6 +142,9 @@
 
     <!-- If this is true, the screen will come on when you unplug usb/power/whatever. -->
     <bool name="config_unplugTurnsOnScreen">true</bool>
+ 
+    <!-- Enable Night display, which requires HWC 2.0. -->
+    <bool name="config_nightDisplayAvailable">true</bool>
 
     <!-- Set to true to add links to Cell Broadcast app from Settings and MMS app. -->
     <bool name="config_cellBroadcastAppLinks">true</bool>
@@ -120,7 +175,7 @@
             64 - Volume rocker
          For example, a device with Home, Back and Menu keys would set this
          config to 7. -->
-    <integer name="config_deviceHardwareWakeKeys">64</integer>
+    <integer name="config_deviceHardwareWakeKeys">65</integer>
 
     <!-- Control the behavior when the user long presses the home button.
             0 - Nothing
@@ -148,7 +203,19 @@
          services/core/java/com/android/server/policy/PhoneWindowManager.java
     -->
     <integer name="config_longPressOnAppSwitchBehavior">1</integer>
-
+ 
+    <!-- Override the default detection behavior for the framework method
+         android.view.ViewConfiguration#hasPermanentMenuKey().
+         Valid settings are:
+         0 - No change. Use the default autodetection behavior.
+         1 - The device DOES have a permanent menu key; ignore autodetection.
+         2 - The device DOES NOT have a permanent menu key; ignore autodetection. -->
+    <integer name="config_overrideHasPermanentMenuKey">2</integer>
+    
+    <!-- Whether a software navigation bar should be shown. NOTE: in the future this may be
+         autodetected from the Configuration. -->
+    <bool name="config_showNavigationBar">false</bool>
+ 
     <!-- Wifi driver supports batched scan -->
     <bool translatable="false" name="config_wifi_batched_scan_supported">true</bool>
 
@@ -281,6 +348,11 @@
     <!-- Flag specifying whether VT is available on device -->
     <bool name="config_device_vt_available">true</bool>
 
+    <!-- Flag specifying whether VT should be available for carrier: independent of
+         carrier provisioning. If false: hard disabled. If true: then depends on carrier
+         provisioning, availability etc -->
+    <bool name="config_carrier_vt_available">true</bool>
+
     <!-- Config determines whether to update phone object when voice registration
          state changes. Voice radio tech change will always trigger an update of
          phone object irrespective of this config -->
@@ -327,6 +399,9 @@
          May be less than the minimum allowed brightness setting
          that can be set by the user. -->
     <integer name="config_screenBrightnessDoze">17</integer>
+    
+    <!-- Whether the always on display mode is available. -->
+<!--    <bool name="config_dozeAlwaysOnDisplayAvailable">true</bool> -->
 
     <!-- If true, the doze component is not started until after the screen has been
          turned off and the screen off animation has been performed. -->
@@ -388,5 +463,11 @@
     <!-- Whether notify fingerprint client of successful cancelled authentication -->
     <bool name="config_notifyClientOnFingerprintCancelSuccess">true</bool>
 
+    <!-- If enabled, capacitive keys will only light up when pressed.
+         Otherwise, the buttons will light up whenever the user interacts with the device -->
+    <bool name="config_buttonLightOnKeypressOnly">true</bool>
+
+    <!-- Whether device supports double tap to wake -->
+    <bool name="config_supportDoubleTapWake">false</bool>
 
 </resources>

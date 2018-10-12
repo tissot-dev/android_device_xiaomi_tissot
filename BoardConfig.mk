@@ -31,30 +31,21 @@ TARGET_2ND_CPU_ABI := armeabi-v7a
 TARGET_2ND_CPU_ABI2 := armeabi
 TARGET_2ND_CPU_VARIANT := cortex-a53
 
+# Platform
 TARGET_BOARD_PLATFORM := msm8953
 TARGET_BOARD_PLATFORM_GPU := qcom-adreno506
 
 TARGET_BOARD_SUFFIX := _64
 TARGET_USES_64_BIT_BINDER := true
 
-# A/B style
-BOARD_USES_RECOVERY_AS_BOOT := true
-BOARD_BUILD_SYSTEM_ROOT_IMAGE := true
-TARGET_NO_KERNEL := false
-TARGET_NO_RECOVERY := true
-
 # Kernel
 BOARD_KERNEL_BASE := 0x80000000
-BOARD_KERNEL_CMDLINE := androidboot.console=ttyHSL0 androidboot.hardware=qcom msm_rtb.filter=0x237 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 androidboot.bootdevice=7824900.sdhci earlycon=msm_hsl_uart,0x78af000 earlycon=msm_hsl_uart,0x78af000
-BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
+BOARD_KERNEL_CMDLINE := ignore_loglevel console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 androidboot.hardware=qcom msm_rtb.filter=0x237 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 androidboot.bootdevice=7824900.sdhci earlycon=msm_hsl_uart,0x78af000 androidboot.selinux=permissive
 BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
 BOARD_KERNEL_PAGESIZE :=  2048
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x01000000 --tags_offset 0x00000100
-TARGET_KERNEL_CONFIG := tissot_defconfig
+TARGET_KERNEL_CONFIG := tissot-perf_defconfig
 TARGET_KERNEL_SOURCE := kernel/xiaomi/msm8953
-
-# Assert
-TARGET_OTA_ASSERT_DEVICE := tissot,tissot_sprout
 
 # ANT
 BOARD_ANT_WIRELESS_DEVICE := "vfs-prerelease"
@@ -88,6 +79,7 @@ AUDIO_FEATURE_ENABLED_SPKR_PROTECTION := true
 AUDIO_FEATURE_ENABLED_SOURCE_TRACKING := true
 AUDIO_FEATURE_ENABLED_SSR := true
 AUDIO_FEATURE_ENABLED_VBAT_MONITOR := true
+#AUDIO_FEATURE_ENABLED_VOICE_CONCURRENCY := true
 AUDIO_FEATURE_ENABLED_VORBIS_OFFLOAD := true
 AUDIO_FEATURE_ENABLED_WMA_OFFLOAD  := true
 AUDIO_FEATURE_ENABLED_EXT_AMPLIFIER := false
@@ -108,16 +100,20 @@ BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_QCOM := true
 BLUETOOTH_HCI_USE_MCT := true
 
+# Camera
+USE_DEVICE_SPECIFIC_CAMERA := true
+BOARD_QTI_CAMERA_32BIT_ONLY := true
+TARGET_TS_MAKEUP := true
+
+# Charger
+BOARD_CHARGER_ENABLE_SUSPEND := true
+BOARD_CHARGER_DISABLE_INIT_BLANK := true
+
 # CMHW
 BOARD_USES_CYANOGEN_HARDWARE := true
 BOARD_HARDWARE_CLASS += \
     hardware/cyanogen/cmhw \
     device/xiaomi/tissot/cmhw
-
-# Camera
-USE_DEVICE_SPECIFIC_CAMERA := true
-BOARD_QTI_CAMERA_32BIT_ONLY := true
-TARGET_TS_MAKEUP := true
 
 # CNE / DPM
 BOARD_USES_QCNE := true
@@ -128,8 +124,15 @@ ENABLE_CPUSETS := true
 # Crypto
 TARGET_HW_DISK_ENCRYPTION := true
 
-# Disable dex pre-opt
-WITH_DEXPREOPT := false
+# Dexpreopt
+ifeq ($(HOST_OS),linux)
+  ifneq ($(TARGET_BUILD_VARIANT),eng)
+    ifeq ($(WITH_DEXPREOPT),)
+      WITH_DEXPREOPT := true
+    endif
+  endif
+endif
+WITH_DEXPREOPT_BOOT_IMG_ONLY ?= true
 
 # Display
 MAX_EGL_CACHE_KEY_SIZE := 12*1024
@@ -141,11 +144,7 @@ TARGET_USES_C2D_COMPOSITION := true
 TARGET_USES_ION := true
 USE_OPENGL_RENDERER := true
 
-# Filesystem
-TARGET_ANDROID_FILESYSTEM_CONFIG_H := $(LOCAL_PATH)/android_filesystem_config.h
-TARGET_USERIMAGES_USE_EXT4 := true
-
-# FM
+#FM
 BOARD_HAVE_QCOM_FM := true
 TARGET_QCOM_NO_FM_FIRMWARE := true
 
@@ -153,14 +152,34 @@ TARGET_QCOM_NO_FM_FIRMWARE := true
 USE_DEVICE_SPECIFIC_GPS := true
 TARGET_NO_RPC := true
 
+# Filesystem
+TARGET_ANDROID_FILESYSTEM_CONFIG_H := $(LOCAL_PATH)/android_filesystem_config.h
+
+# Init
+TARGET_INIT_VENDOR_LIB := libinit_tissot
+TARGET_PLATFORM_DEVICE_BASE := /devices/soc/
+TARGET_RECOVERY_DEVICE_MODULES := libinit_tissot
+
 # Keymaster
 TARGET_PROVIDES_KEYMASTER := true
 
 # Media
 TARGET_USES_MEDIA_EXTENSIONS := true
 
-# Lights
-TARGET_PROVIDES_LIBLIGHT := true
+# Partitions
+BOARD_BOOTIMAGE_PARTITION_SIZE := 67108864
+BOARD_SYSTEMIMAGE_PARTITION_SIZE := 3221225472
+BOARD_USERDATAIMAGE_PARTITION_SIZE := 55087438848
+BOARD_PERSISTIMAGE_PARTITION_SIZE := 33554432
+BOARD_PERSISTIMAGE_FILE_SYSTEM_TYPE := ext4
+# BOARD_BUILD_SYSTEM_ROOT_IMAGE := true
+BOARD_FLASH_BLOCK_SIZE := 131072 # (BOARD_KERNEL_PAGESIZE * 64)
+BOARD_HAS_LARGE_FILESYSTEM := true
+# BOARD_USES_RECOVERY_AS_BOOT := true
+TARGET_NO_RECOVERY := true
+TARGET_RECOVERY_UPDATER_LIBS := librecovery_updater_msm8953
+TARGET_USERIMAGES_USE_EXT4 := true
+TARGET_USERIMAGES_USE_F2FS := true
 
 # Peripheral manager
 TARGET_PER_MGR_ENABLED := true
@@ -171,48 +190,42 @@ TARGET_POWERHAL_VARIANT := qcom
 # Properties
 TARGET_SYSTEM_PROP := $(LOCAL_PATH)/system.prop
 
-# Partitions
-BOARD_BOOTIMAGE_PARTITION_SIZE := 67108864
-BOARD_SYSTEMIMAGE_PARTITION_SIZE := 3221225472
-BOARD_USERDATAIMAGE_PARTITION_SIZE := 55087438848
-BOARD_PERSISTIMAGE_PARTITION_SIZE := 33554432
-BOARD_FLASH_BLOCK_SIZE := 131072 # (BOARD_KERNEL_PAGESIZE * 64)
-
 # Qualcomm
 BOARD_USES_QCOM_HARDWARE := true
 BOARD_USES_QC_TIME_SERVICES := true
 TARGET_USE_SDCLANG := true
 
 # RIL
+BOARD_RIL_CLASS := ../../../$(LOCAL_PATH)/ril
 TARGET_RIL_VARIANT := caf
 
 # Recovery
 TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/rootdir/fstab.qcom
-#TARGET_RECOVERY_UI_LIB := librecovery_ui_msm
-TARGET_RECOVERY_UI_LIB := librecovery_ui_nanohub
-TARGET_RECOVERY_UPDATER_LIBS := librecovery_updater_$(TARGET_BOARD_PLATFORM)
 
 # Sensor
 USE_SENSOR_MULTI_HAL := true
 
 # SELinux
 include device/qcom/sepolicy/sepolicy.mk
+BOARD_SEPOLICY_DIRS += $(LOCAL_PATH)/sepolicy
+
+# Root
+BOARD_ROOT_EXTRA_FOLDERS := dsp firmware persist
 
 # Wi-Fi
 BOARD_HAS_QCOM_WLAN := true
 BOARD_HAS_QCOM_WLAN_SDK := true
+BOARD_WLAN_DEVICE := qcwcn
+WPA_SUPPLICANT_VERSION := VER_0_8_X
 BOARD_HOSTAPD_DRIVER := NL80211
 BOARD_HOSTAPD_PRIVATE_LIB := lib_driver_cmd_qcwcn
-BOARD_WLAN_DEVICE := qcwcn
 BOARD_WPA_SUPPLICANT_DRIVER := NL80211
 BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_qcwcn
 WIFI_DRIVER_FW_PATH_AP := "ap"
 WIFI_DRIVER_FW_PATH_STA := "sta"
-WPA_SUPPLICANT_VERSION := VER_0_8_X
-WIFI_DRIVER_MODULE_NAME := wlan
-WIFI_DRIVER_MODULE_PATH := /system/lib/modules/pronto/pronto_wlan.ko
-WIFI_DRIVER_MODULE_ARG := con_mode=5
-TARGET_USES_QCOM_WCNSS_QMI := true
+WIFI_DRIVER_FW_PATH_P2P := "p2p"
+WIFI_DRIVER_MODULE_PATH := "/system/lib/modules/wlan.ko"
+WIFI_DRIVER_MODULE_NAME := "wlan"
 
 # Inherit from the proprietary version
 -include vendor/xiaomi/tissot/BoardConfigVendor.mk

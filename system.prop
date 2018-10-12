@@ -2,134 +2,132 @@
 # system.prop for tissot
 #
 
-# System props for audio
-bluetooth.hfp.client=1
-af.fast_track_multiplier=2
-audio.parser.ip.buffer.size=0
-audio_hal.period_size=192
-audio.deep_buffer.media=true
-audio.dolby.ds2.enabled=true
-audio.dolby.ds2.hardbypass=true
-audio.offload.buffer.size.kb=64
-audio.offload.disable=true
-audio.offload.gapless.enabled=true
-audio.offload.min.duration.secs=30
-audio.offload.multiaac.enable=true
-audio.offload.multiple.enabled=false
-audio.offload.pcm.16bit.enable=true
-audio.offload.pcm.24bit.enable=true
-audio.offload.track.enable=true
-audio.offload.video=true
-audio.playback.mch.downsample=true
-audio.pp.asphere.enabled=false
-audio.safx.pbe.enabled=true
-flac.sw.decoder.24bit.support=true
-persist.audio.fluence.voicecall=true
-persist.audio.fluence.voicerec=true
-persist.audio.fluence.speaker=true
-persist.speaker.prot.enable=false
-ro.qc.sdk.audio.ssr=false
-ro.qc.sdk.audio.fluencetype=fluence
-tunnel.audio.encode=false
-use.voice.path.for.pcm.voip=true
-use.qti.sw.alac.decoder=true
-use.qti.sw.ape.decoder=true
-voice.conc.fallbackpath=deep-buffer
+# Audio
 voice.playback.conc.disabled=true
 voice.record.conc.disabled=false
 voice.voip.conc.disabled=true
+voice.conc.fallbackpath=deep-buffer
+audio.parser.ip.buffer.size=0
+audio_hal.period_size=192
+ro.qc.sdk.audio.ssr=false
+ro.qc.sdk.audio.fluencetype=fluence
+persist.audio.fluence.voicecall=true
+persist.audio.fluence.voicerec=true
+persist.audio.fluence.speaker=true
+audio.offload.disable = true
+tunnel.audio.encode = false
+audio.offload.buffer.size.kb=64
+audio.offload.min.duration.secs=30
+audio.offload.video=true
+audio.offload.pcm.16bit.enable=true
+audio.offload.pcm.24bit.enable=true
+audio.offload.track.enable=true
+audio.deep_buffer.media=true
+audio.playback.mch.downsample=true
+use.voice.path.for.pcm.voip=true
+use.qti.sw.alac.decoder=true
+use.qti.sw.ape.decoder=true
+audio.offload.gapless.enabled=true
+audio.offload.multiple.enabled=false
+audio.safx.pbe.enabled=true
+audio.pp.asphere.enabled=false
+audio.dolby.ds2.enabled=true
+af.fast_track_multiplier=2
+persist.speaker.prot.enable=false
+audio.offload.multiaac.enable=true
+audio.dolby.ds2.hardbypass=true
+flac.sw.decoder.24bit.support=true
 
-# System props for bluetooh
+# Bluetooth
 bluetooth.hfp.client=1
+qcom.bluetooth.soc=smd
 
-# System props for camera
+# Camera
+persist.camera.isp.clock.optmz=0
+vidc.enc.dcvs.extra-buff-count=2
+media.camera.ts.monotonic=1
 camera.display.umax=1920x1080
 camera.display.lmax=1280x720
-camera.hal1.packagelist=com.skype.raider,com.google.android.talk
-camera.lowpower.record.enable=1
 persist.camera.stats.test=5
 persist.camera.feature.cac=1
 persist.camera.imglib.cac3=2
+camera.lowpower.record.enable=1
 persist.camera.gyro.disable=0
-persist.camera.isp.clock.optmz=0
-media.camera.ts.monotonic=1
-vidc.enc.dcvs.extra-buff-count=2
+camera.hal1.packagelist=com.skype.raider,com.google.android.talk
 
-#selects CoreSight configuration to enable
-persist.debug.coresight.config=stm-events
-
-# System props for CNE module
+# Cne/Dpm
 persist.cne.feature=1
-
-# System props for dmp module
 persist.dpm.feature=1
 persist.dpm.nsrm.bkg.evt=3955
 
-# System props for drm service
-drm.service.enabled=true
+# Coresight
+persist.debug.coresight.config=stm-events
 
-# system props for the data modules
-ro.use_data_netmgrd=true
-persist.data.netmgrd.qos.enable=true
-persist.data.mode=concurrent
-
-# system prop for display
-ro.opengles.version=196610
+# Display
 persist.debug.wfd.enable=1
 persist.hwc.enable_vds=1
 debug.sf.hw=0
 debug.egl.hw=0
 persist.hwc.mdpcomp.enable=true
-debug.mdpcomp.logs=0
 dalvik.vm.heapsize=36m
+debug.mdpcomp.logs=0
 dev.pm.dyn_samplingrate=1
 persist.demo.hdmirotationlock=false
 debug.enable.sglscale=1
 debug.gralloc.enable_fb_ubwc=1
+ro.opengles.version=196610
 ro.qualcomm.cabl=0
 ro.sf.lcd_density=480
-#ro.hdmi.enable=true
 
-# Enable B service adj transition by default
+# DRM
+drm.service.enabled=true
+
+#Enable B service adj transition by default
 ro.sys.fw.bservice_enable=true
 ro.sys.fw.bservice_limit=5
 ro.sys.fw.bservice_age=5000
 
-# property to enable fingerprint
+# Fingerprint
 persist.qfp=false
 
-# System property for FM transmitter
+# Fm
 ro.fm.transmitter=false
 
-# System property for FRP
+# Frp
 ro.frp.pst=/dev/block/bootdevice/by-name/config
 
-# System props for gps
+# GPS
 persist.gps.qc_nlp_in_use=1
 persist.loc.nlp_name=com.qualcomm.location
 ro.gps.agps_provider=1
 
-# System props for media
+# Media
 media.msm8956hw=0
 mm.enable.smoothstreaming=true
 mmp.enable.3g2=true
 media.aac_51_output_enabled=true
+media.stagefright.audio.sink=280
 av.debug.disable.pers.cache=1
 qcom.hw.aac.encoder=true
-mm.enable.qcom_parser=261821
+mm.enable.qcom_parser=1048575
 vidc.enc.disable_bframes=1
-vidc.enc.disable_pframes=1
-vidc.disable.split.mode=1
 vidc.dec.downscalar_width=1920
 vidc.dec.downscalar_height=1088
+vidc.disable.split.mode=1
 vidc.enc.disable.pq=true
 
-# System props for perf
+# Perf
+ro.vendor.extension_library=libqti-perfd-client.so
 ro.am.reschedule_service=true
 ro.sys.fw.dex2oat_thread_count=4
-ro.vendor.extension_library=libqti-perfd-client.so
 
-# System props for nitz
+
+# Netmgrd
+ro.use_data_netmgrd=true
+persist.data.netmgrd.qos.enable=true
+persist.data.mode=concurrent
+
+# Nitz
 persist.rild.nitz_plmn=
 persist.rild.nitz_long_ons_0=
 persist.rild.nitz_long_ons_1=
@@ -140,20 +138,15 @@ persist.rild.nitz_short_ons_1=
 persist.rild.nitz_short_ons_2=
 persist.rild.nitz_short_ons_3=
 
-# System props for rild
+# Radio
 rild.libpath=/vendor/lib64/libril-qc-qmi-1.so
 rild.libargs=-d /dev/smd0
 ril.subscription.types=NV,RUIM
 DEVICE_PROVISIONED=1
+ro.telephony.ril_class=MidoRIL
 ro.telephony.default_network=22,20
 ro.telephony.call_ring.multiple=false
-persist.data.iwlan.enable=true
-persist.dbg.wfc_avail_ovr=0
-persist.dbg.volte_avail_ovr=1
-persist.dbg.vt_avail_ovr=1
-persist.dbg.ims_volte_enable=1
-persist.dbg.volte_avail_ovr=1
-persist.dbg.vt_avail_ovr=1persist.radio.multisim.config=dsds
+persist.radio.multisim.config=dsds
 persist.radio.sib16_support=1
 persist.radio.custom_ecc=1
 persist.radio.calls.on.ims=0
@@ -162,24 +155,31 @@ persist.radio.csvt.enabled=false
 persist.radio.rat_on=combine
 persist.radio.mt_sms_ack=20
 persist.radio.apm_sim_not_pwdn=1
+persist.dbg.volte_avail_ovr=1
+persist.dbg.vt_avail_ovr=1
+persist.dbg.ims_volte_enable=1
+persist.dbg.volte_avail_ovr=1
+persist.dbg.vt_avail_ovr=1
 persist.radio.videopause.mode=1
+persist.data.iwlan.enable=true
+persist.dbg.wfc_avail_ovr=0
 persist.radio.sw_mbn_update=0
 persist.radio.hw_mbn_update=0
 service.qti.ims.enabled=1
 telephony.lteOnCdmaDevice=1
 
-#Simulate sdcard on /data/media
-persist.fuse_sdcard=true
-
-#system props for time-services
+# Time Services
 persist.timed.enable=true
 
-#Trim properties
+# Tcp
+net.tcp.2g_init_rwnd=10
+
+# Trim properties
 ro.sys.fw.use_trim_settings=true
 ro.sys.fw.empty_app_percent=50
 ro.sys.fw.trim_empty_percent=100
 ro.sys.fw.trim_cache_percent=100
 ro.sys.fw.trim_enable_memory=2147483648
 
-# system property for wifi
+# Wifi
 wifi.interface=wlan0
